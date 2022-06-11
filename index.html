@@ -6,34 +6,224 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mushroom Classifier 🍄</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/stars.css">
     <script type="text/javascript" src="agaricus-lepiota.json"></script>
 </head>
 
-<body>
+<body style="background-color: rgb(228, 228, 228);">
 
-    <div id="background" class="background-image"></div>
+    <div style="padding: 20px;">
 
-    <div class="nc-main bg-cover bg-cc">
-        <div class="full-wh">
-            <!-- STAR ANIMATION -->
-            <div class="bg-animation">
-                <div id='stars'></div>
-                <div id='stars2'></div>
+        <h2>Insert mushroom data:</h2>
+
+        <div>
+            <!--inputs-->
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">1. Formato do chapéu</div>
+                <select name="cap-shape" id="cap-shape">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
             </div>
-            <!-- / STAR ANIMATION -->
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">2. Superfície do chapéu</div>
+                <select name="cap-surface" id="cap-surface">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">3. Cor do chapéu</div>
+                <select name="cap-color" id="cap-color">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">4. Contusões</div>
+                <select name="bruises" id="bruises">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">5. Odor</div>
+                <select name="odor" id="odor">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">6. Anexo branquial</div>
+                <select name="gill-attachment" id="gill-attachment">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">7. Espaçamento branquial</div>
+                <select name="gill-spacing" id="gill-spacing">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">8. Tamanho das brânquias</div>
+                <select name="gill-size" id="gill-size">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">9. Cor das brânquias</div>
+                <select name="gill-color" id="gill-color">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">10. Formato do talo</div>
+                <select name="stalk-shape" id="stalk-shape">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">11. Raíz do talo</div>
+                <select name="stalk-root" id="stalk-root">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">12. Superfície do talo acima do anel</div>
+                <select name="stalk-surface-above-ring" id="stalk-surface-above-ring">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">13. Superfície do talo abaixo do anel</div>
+                <select name="stalk-surface-below-ring" id="stalk-surface-below-ring">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">14. Cor do talo acima do anel</div>
+                <select name="stalk-color-above-ring" id="stalk-color-above-ring">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">15. Cor do talo abaixo do anel</div>
+                <select name="stalk-color-below-ring" id="stalk-color-below-ring">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">16. Tipo de véu</div>
+                <select name="veil-type" id="veil-type">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">17. Cor de véu</div>
+                <select name="veil-color" id="veil-color">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">18. Número de anéis</div>
+                <select name="ring-number" id="ring-number">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">19. Tipo de anéis</div>
+                <select name="ring-type" id="ring-type">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">20. Cor das impressões de esporos</div>
+                <select name="spore-print-color" id="spore-print-color">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">21. População</div>
+                <select name="population" id="population">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="margin-bottom: 10px;">22. Habitat</div>
+                <select name="habitat" id="habitat">
+                    <option value="-">Selecione uma opção</option>
+                    <option value="?">Desconhecido</option>
+                    <option value="$">$</option>
+                </select>
+            </div>
         </div>
+
+        <button style="margin-top: 20px;" onclick="retrieveMushroomData()">
+            Classify
+        </button>
 
     </div>
 
-    <div class="container">
-        <div class="btn-enter" id="btn-main">
-            <p class="animated-word" id="title-main">INICIAR</p>
-        </div>
-    </div>
 
-    <script src="./main.js"></script>
+
     <script src="./classifier.js"></script>
 
 </body>

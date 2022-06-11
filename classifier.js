@@ -9,7 +9,17 @@ const trainClassifierModel = () => {
 };
 
 // Receives input
+const retrieveMushroomData = () => {
 
+    let mushroom = {};
+
+    mushroom.cap_surface = document.getElementById('cap-surface').value;
+
+    console.log(mushroom);
+
+    return mushroom;
+
+};
 
 // Perform classification
 
