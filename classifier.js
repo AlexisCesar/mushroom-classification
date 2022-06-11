@@ -1,17 +1,12 @@
 // Read dataset file
-
-const logDataset = () => {
-    var mydata = JSON.parse(data);
-
-
-    mydata.forEach(element => {
-        console.log(element);
-    });
-
-};
+const dataSet = JSON.parse(data);
 
 // Training phase
-
+const trainClassifierModel = () => {
+    dataSet.forEach(mushroom => {
+        console.log(mushroom);
+    });
+};
 
 // Receives input
 
