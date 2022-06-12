@@ -4,7 +4,7 @@
 
 This repo is dedicated to our AI homework. Its goal is to perform some AI task with a given dataset, in this case we have chosen Classification as our task.
 
-Objective: classify if a mushroom is edible or poisonouss based on its characteristics (color, shape, rings etc).
+Objective: classify if a mushroom is edible or poisonous based on its characteristics (color, shape, rings etc).
 
 Dataset: agaricus-lepiota.data from https://archive.ics.uci.edu/ml/datasets/Mushroom
 
