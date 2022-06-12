@@ -14,5 +14,5 @@ const trainClassifierModel = () => {
 // Perform classification
 
 
-// Show result
+// Show results
 
