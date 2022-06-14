@@ -13,33 +13,14 @@ const trainClassifierModel = () => {
 // Receives input
 const retrieveMushroomData = () => {
 
-    let mushroom = {};
-
-    mushroom.cap_surface = document.getElementById('cap-surface').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
-    mushroom. = document.getElementById('').value;
+    let mushroom = document.getElementsByTagName('select');
 
 
     console.log(mushroom);
+
+    console.log('*****************');
+
+    console.log(mushroom.cap_shape.value);
 
     return mushroom;
 
