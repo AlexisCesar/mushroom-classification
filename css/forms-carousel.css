@@ -1,0 +1,22 @@
+
+
+/* Navigation Area */
+.carousel-control-next, 
+.carousel-control-prev{
+    height: 2.5rem;
+    width: 2.5rem;
+    margin: auto 0;
+} 
+
+.select-disposition {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.container-carousel {
+    background: rgba(255, 255, 255, 0.1 );
+    backdrop-filter: blur(5px);
+    border-radius: 5% 0 5% 0;
+    padding: 150px 0;
+    max-width: 600px;
+}
