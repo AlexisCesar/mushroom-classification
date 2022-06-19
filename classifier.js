@@ -13,13 +13,13 @@ const trainClassifierModel = () => {
 
     let baseDeTreino = [];
 
-    for (let i = 0; i < Math.floor(cogumelos.length * 0.66); i++) {
+    for (let i = 0; i < Math.floor(cogumelos.length * 0.75); i++) {
         baseDeTreino.push(cogumelos[i]);
     }
 
     let baseDeTeste = [];
 
-    for (let i = Math.floor(cogumelos.length * 0.66); i < Math.floor(cogumelos.length); i++) {
+    for (let i = Math.floor(cogumelos.length * 0.75); i < Math.floor(cogumelos.length); i++) {
         baseDeTeste.push(cogumelos[i]);
     }
 
