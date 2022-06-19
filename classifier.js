@@ -1,91 +1,89 @@
-var deducaoComestivelInicial = 0;
-var deducaoVenenosoInicial = 0;
-var mochilasDeAtributos = [];
+var edibleInitialGuess = 0;
+var poisonousInitialGuess = 0;
+var attributesBags = [];
 
 // Training phase
 const trainClassifierModel = () => {
     // Read dataset file
-    let cogumelos = JSON.parse(data);
+    let mushrooms = JSON.parse(data);
 
-    cogumelos.forEach((elemento, index) => {
-        cogumelos[index] = elemento.split(',');
+    mushrooms.forEach((attribute, index) => {
+        mushrooms[index] = attribute.split(',');
     });
 
-    let baseDeTreino = [];
+    let trainingDataset = [];
 
-    for (let i = 0; i < Math.floor(cogumelos.length * 0.75); i++) {
-        baseDeTreino.push(cogumelos[i]);
+    for (let i = 0; i < Math.floor(mushrooms.length * 0.75); i++) {
+        trainingDataset.push(mushrooms[i]);
     }
 
-    let baseDeTeste = [];
+    let testingDataset = [];
 
-    for (let i = Math.floor(cogumelos.length * 0.75); i < Math.floor(cogumelos.length); i++) {
-        baseDeTeste.push(cogumelos[i]);
+    for (let i = Math.floor(mushrooms.length * 0.75); i < Math.floor(mushrooms.length); i++) {
+        testingDataset.push(mushrooms[i]);
     }
 
-    // Mochila de atributos
     for (let i = 0; i < 23; i++) {
-        mochilasDeAtributos.push([]);
+        attributesBags.push([]);
     }
 
-    let cogumelosLidos = 0;
-    let totalVenenoso = 0;
-    let totalComestivel = 0;
+    let totalMushroomsRead = 0;
+    let totalPoisonous = 0;
+    let totalEdible = 0;
 
-    //Para cada cogumelo na lista
-    baseDeTreino.forEach(cog => {
+    trainingDataset.forEach(cog => {
 
-        cogumelosLidos++;
+        totalMushroomsRead++;
 
-        let tipo = '?';
+        let type = '?';
 
-        cog.forEach((atributo, index) => {
+        cog.forEach((attribute, index) => {
 
-            //Pega o tipo do cogumelo
+            // Gets mushroom type
             if (index == 0) {
-                if (atributo == 'e') {
-                    tipo = 'comestivel';
-                    totalComestivel++;
-                } else if (atributo == 'p') {
-                    tipo = 'venenoso';
-                    totalVenenoso++;
+                if (attribute == 'e') {
+                    type = 'edible';
+                    totalEdible++;
+                } else if (attribute == 'p') {
+                    type = 'poisonous';
+                    totalPoisonous++;
                 } else {
                     console.log("A missing class training data was found.");
                 }
             } else {
 
-                let jaCadastrado = false;
-                let jaCadastradoIndex = -1;
+                let alreadyRegistered = false;
+                let alreadyRegisteredIndex = -1;
 
 
-                mochilasDeAtributos[index].forEach((atributoCadastrado, index) => {
-                    if (atributo == atributoCadastrado.atributo) {
-                        jaCadastrado = true;
-                        jaCadastradoIndex = index;
+                attributesBags[index].forEach((registeredAttribute, index) => {
+                    if (attribute == registeredAttribute.atributo) {
+                        alreadyRegistered = true;
+                        alreadyRegisteredIndex = index;
                     }
                 });
 
 
-                if (!jaCadastrado) {
-                    //Adiciona o atributo a mochila de atributos
-                    if (tipo == 'comestivel') {
-                        mochilasDeAtributos[index].push({
-                            atributo: atributo,
+                if (!alreadyRegistered) {
+                    // Add to the attribute bag
+                    if (type == 'edible') {
+                        attributesBags[index].push({
+                            atributo: attribute,
                             ocorrencias_total: 3,
                             ocorrencias_venenoso: 1, //black box
                             ocorrencias_comestivel: 2
                         })
                     } else {
-                        mochilasDeAtributos[index].push({
-                            atributo: atributo,
+                        attributesBags[index].push({
+                            atributo: attribute,
                             ocorrencias_total: 3,
                             ocorrencias_venenoso: 2,
                             ocorrencias_comestivel: 1 //black box
                         })
                     }
                 } else {
-                    mochilasDeAtributos[index][jaCadastradoIndex].ocorrencias_total++;
-                    tipo == 'venenoso' ? mochilasDeAtributos[index][jaCadastradoIndex].ocorrencias_venenoso++ : mochilasDeAtributos[index][jaCadastradoIndex].ocorrencias_comestivel++;
+                    attributesBags[index][alreadyRegisteredIndex].ocorrencias_total++;
+                    type == 'poisonous' ? attributesBags[index][alreadyRegisteredIndex].ocorrencias_venenoso++ : attributesBags[index][alreadyRegisteredIndex].ocorrencias_comestivel++;
                 }
 
 
@@ -96,54 +94,53 @@ const trainClassifierModel = () => {
 
     });
 
-    // Qual a chance de qualquer coisa ser venenoso ou comestível?
-    deducaoComestivelInicial = totalComestivel / cogumelosLidos;
-    deducaoVenenosoInicial = totalVenenoso / cogumelosLidos;
+    edibleInitialGuess = totalEdible / totalMushroomsRead;
+    poisonousInitialGuess = totalPoisonous / totalMushroomsRead;
 
-    //Cálculo das probabilidades
-    mochilasDeAtributos.forEach((mochila, indexMochila) => {
+    // Probabilities calc
+    attributesBags.forEach((bag, bagIndex) => {
 
-        mochila.forEach((atributo, indexAtributo) => {
+        bag.forEach((attribute, attributeIndex) => {
 
-            mochilasDeAtributos[indexMochila][indexAtributo].prob_venenoso = atributo.ocorrencias_venenoso / atributo.ocorrencias_total;
-            mochilasDeAtributos[indexMochila][indexAtributo].prob_comestivel = atributo.ocorrencias_comestivel / atributo.ocorrencias_total;
+            attributesBags[bagIndex][attributeIndex].prob_venenoso = attribute.ocorrencias_venenoso / attribute.ocorrencias_total;
+            attributesBags[bagIndex][attributeIndex].prob_comestivel = attribute.ocorrencias_comestivel / attribute.ocorrencias_total;
 
         })
 
     });
 
-    // Testa e retorna acurácia
-    let cogumelosTestados = 0;
-    let classificacoesCorretas = 0;
+    // Test and accuracy
+    let testedMushrooms = 0;
+    let correctClassifications = 0;
 
-    baseDeTeste.forEach(cog => {
+    testingDataset.forEach(mushr => {
 
-        probabilidadeDeSerComestivel = deducaoComestivelInicial;
-        probabilidadeDeSerVenenoso = deducaoVenenosoInicial;
+        let probOfBeingEdible = edibleInitialGuess;
+        let probOfBeingPoisonous = poisonousInitialGuess;
 
-        cogumelosTestados++;
+        testedMushrooms++;
 
-        let tipoReal = '?';
-        let tipoClassificado = '?';
+        let actualType = '?';
+        let classifiedType = '?';
 
-        cog.forEach((atributo, index) => {
+        mushr.forEach((attribute, index) => {
 
             if (index == 0) {
-                if (atributo == 'e') {
-                    tipoReal = 'comestivel';
-                } else if (atributo == 'p') {
-                    tipoReal = 'venenoso';
+                if (attribute == 'e') {
+                    actualType = 'edible';
+                } else if (attribute == 'p') {
+                    actualType = 'poisonous';
                 } else {
                     console.log("A missing class testing data was found.");
                 }
             } else {
 
-                // procura o atributo na mochila correspondente
-                mochilasDeAtributos[index].forEach(atributoRegistrado => {
-                    if (atributo == atributoRegistrado.atributo) {
-                        //adiciona na multiplicação de probablidade
-                        probabilidadeDeSerComestivel *= atributoRegistrado.prob_comestivel;
-                        probabilidadeDeSerVenenoso *= atributoRegistrado.prob_venenoso;
+                // searches for the attribute in the corresponding bag
+                attributesBags[index].forEach(registeredAttribute => {
+                    if (attribute == registeredAttribute.atributo) {
+                        // add to the multiplication
+                        probOfBeingEdible *= registeredAttribute.prob_comestivel;
+                        probOfBeingPoisonous *= registeredAttribute.prob_venenoso;
                     }
                 });
 
@@ -151,22 +148,22 @@ const trainClassifierModel = () => {
 
         });
 
-        // Classifica
-        if (probabilidadeDeSerComestivel > probabilidadeDeSerVenenoso) {
-            tipoClassificado = 'comestivel';
+        // Classify
+        if (probOfBeingEdible > probOfBeingPoisonous) {
+            classifiedType = 'edible';
         } else {
-            tipoClassificado = 'venenoso';
+            classifiedType = 'poisonous';
         }
 
-        if (tipoClassificado == tipoReal) {
-            classificacoesCorretas++;
+        if (classifiedType == actualType) {
+            correctClassifications++;
         }
 
     });
 
-    let acuracia = classificacoesCorretas / cogumelosTestados * 100;
+    let accuracy = correctClassifications / testedMushrooms * 100;
 
-    console.log("Acurácia: " + acuracia.toFixed(2));
+    console.log("Accuracy: " + accuracy.toFixed(2));
 
 };
 
@@ -216,26 +213,24 @@ const classifyAndReturnResult = () => {
     let mushroomAttributesList = generateAttributeList(mushroom);
 
     // classification logic
-    probabilidadeDeSerComestivel = deducaoComestivelInicial;
-    probabilidadeDeSerVenenoso = deducaoVenenosoInicial;
+    let probOfBeingEdible = edibleInitialGuess;
+    let probOfBeingPoisonous = poisonousInitialGuess;
 
-    mushroomAttributesList.forEach((atributo, index) => {
+    mushroomAttributesList.forEach((attribute, index) => {
 
         if (index != 0) {
-            // procura o atributo na mochila correspondente
-            mochilasDeAtributos[index].forEach(atributoRegistrado => {
-                if (atributo == atributoRegistrado.atributo) {
-                    //adiciona na multiplicação de probablidade
-                    probabilidadeDeSerComestivel *= atributoRegistrado.prob_comestivel;
-                    probabilidadeDeSerVenenoso *= atributoRegistrado.prob_venenoso;
+            attributesBags[index].forEach(registeredAttribute => {
+                if (attribute == registeredAttribute.atributo) {
+                    probOfBeingEdible *= registeredAttribute.prob_comestivel;
+                    probOfBeingPoisonous *= registeredAttribute.prob_venenoso;
                 }
             });
         }
 
     });
 
-    // Classifica
-    if (probabilidadeDeSerComestivel > probabilidadeDeSerVenenoso) {
+    // Classify
+    if (probOfBeingEdible > probOfBeingPoisonous) {
         return 1;
     } else {
         return 0;
