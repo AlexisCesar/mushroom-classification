@@ -10,5 +10,7 @@ Dataset: agaricus-lepiota.data from https://archive.ics.uci.edu/ml/datasets/Mush
 
 Classification: the algorithm used to classify the mushrooms is Naïve Bayes.
 
+Accuracy: 94.58%
+
 ## Running
 You just have to open index.html file in order to use this application.
