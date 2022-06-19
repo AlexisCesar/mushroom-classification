@@ -175,34 +175,62 @@ const retrieveMushroomData = () => {
 
     let mushroom = document.getElementsByTagName('select');
 
-    console.log(mushroom);
-
     return mushroom;
 
 };
 
+const generateAttributeList = (mushroom) => {
+    let atrList = [];
+    atrList.push('?');
+
+    atrList.push(mushroom.cap_shape.value);
+    atrList.push(mushroom.cap_surface.value);
+    atrList.push(mushroom.cap_color.value);
+    atrList.push(mushroom.bruises.value);
+    atrList.push(mushroom.odor.value);
+    atrList.push(mushroom.gill_attachment.value);
+    atrList.push(mushroom.gill_spacing.value);
+    atrList.push(mushroom.gill_size.value);
+    atrList.push(mushroom.gill_color.value);
+    atrList.push(mushroom.stalk_shape.value);
+    atrList.push(mushroom.stalk_root.value);
+    atrList.push(mushroom.stalk_surface_above_ring.value);
+    atrList.push(mushroom.stalk_surface_below_ring.value);
+    atrList.push(mushroom.stalk_color_below_ring.value);
+    atrList.push(mushroom.stalk_color_below_ring.value);
+    atrList.push(mushroom.veil_type.value);
+    atrList.push(mushroom.veil_color.value);
+    atrList.push(mushroom.ring_number.value);
+    atrList.push(mushroom.ring_type.value);
+    atrList.push(mushroom.spore_print_color.value);
+    atrList.push(mushroom.population.value);
+    atrList.push(mushroom.habitat.value);
+
+    return atrList;
+};
+
 // Perform classification
 const classifyAndReturnResult = () => {
-
-    // Fazer: lógica da classificação
-
-    /*
     let mushroom = retrieveMushroomData();
+
+    let mushroomAttributesList = generateAttributeList(mushroom);
 
     // classification logic
     probabilidadeDeSerComestivel = deducaoComestivelInicial;
     probabilidadeDeSerVenenoso = deducaoVenenosoInicial;
 
-    mushroom.forEach((atributo, index) => {
+    mushroomAttributesList.forEach((atributo, index) => {
 
-        // procura o atributo na mochila correspondente
-        mochilasDeAtributos[index].forEach(atributoRegistrado => {
-            if (atributo == atributoRegistrado.atributo) {
-                //adiciona na multiplicação de probablidade
-                probabilidadeDeSerComestivel *= atributoRegistrado.prob_comestivel;
-                probabilidadeDeSerVenenoso *= atributoRegistrado.prob_venenoso;
-            }
-        });
+        if (index != 0) {
+            // procura o atributo na mochila correspondente
+            mochilasDeAtributos[index].forEach(atributoRegistrado => {
+                if (atributo == atributoRegistrado.atributo) {
+                    //adiciona na multiplicação de probablidade
+                    probabilidadeDeSerComestivel *= atributoRegistrado.prob_comestivel;
+                    probabilidadeDeSerVenenoso *= atributoRegistrado.prob_venenoso;
+                }
+            });
+        }
 
     });
 
@@ -212,12 +240,6 @@ const classifyAndReturnResult = () => {
     } else {
         return 0;
     }
-
-    // return result (edible (1) - poisonous (0))
-    return -1;
-    */
-
-    return 0;
 };
 
 // Show result
