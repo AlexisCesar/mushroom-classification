@@ -167,6 +167,8 @@ const trainClassifierModel = () => {
 
 };
 
+//Alexis' stop point
+
 // Receives input
 const retrieveMushroomData = () => {
 
