@@ -9,17 +9,19 @@
 
 .select-disposition {
     display: flex;
-    justify-content: space-evenly;
-    padding: 3rem 0;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 3rem 5rem;
 }
 
 .container-carousel {
-    background: rgba(255, 255, 255, 0.1 );
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(1px);
-    border-radius: 3%;
+    box-shadow: 0 0 10px 4px rgba(0,0,0,0.5);
+    border-radius: 15px;
     margin-top: 8%;
     padding: 3rem 0;
-    min-width: 80%;
+    width: 85%;
     position: absolute;
     top: 0;
 }
@@ -28,4 +30,19 @@
     text-align: center;
     color: #fff;
     font-size: 2.5rem;
+    text-shadow: -5px -3px 10px #000;
+}
+
+.result {
+    color: #fff; 
+    text-align: left; 
+    font-weight: bold;
+    padding-left: 0;
+    padding-top: 2px;
+}
+
+.custom-btn {
+    background-color: #9931e9;
+    font-weight: bold;
+    color: #f3f3f3;
 }
